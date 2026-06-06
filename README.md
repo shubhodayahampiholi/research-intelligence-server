@@ -33,21 +33,26 @@ The server exposes a curated collection of 12 research papers across 4 domains (
 
 ## Project Structure
 
+## Project Structure
+
+```
 src/research_server/
-├── models/domain.py          # Pydantic domain models — the living contract
+├── models/
+│   └── domain.py              # Pydantic domain models — the living contract
 ├── data/
-│   ├── papers.py             # Static mock dataset (12 papers)
-│   └── store.py              # Data access layer
+│   ├── papers.py              # Static mock dataset (12 papers)
+│   └── store.py               # Data access layer
 ├── primitives/
-│   ├── resources.py          # Resource handlers
-│   ├── tools.py              # Tool handlers
-│   └── prompts.py            # Prompt handlers
-├── server.py                 # Transport-agnostic server assembly
+│   ├── resources.py           # Resource handlers
+│   ├── tools.py               # Tool handlers
+│   └── prompts.py             # Prompt handlers
+├── server.py                  # Transport-agnostic server assembly
 ├── transport/
-│   ├── stdio.py              # stdio transport runner
-│   └── http.py               # Streamable HTTP transport runner
+│   ├── stdio.py               # stdio transport runner
+│   └── http.py                # Streamable HTTP transport runner
 └── observability/
-└── logging.py            # Structured JSON logging (stderr only)
+    └── logging.py             # Structured JSON logging (stderr only)
+```
 
 ---
 
@@ -94,6 +99,25 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 Restart Claude Desktop. The server's tools and prompts will appear in the interface.
 
 ---
+
+## Verify the Server
+
+### stdio
+```bash
+echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"test","version":"1.0.0"}}}' | uv run research-server-stdio 2>/dev/null
+```
+
+### Streamable HTTP
+```bash
+# Terminal 1 — start the server
+uv run research-server-http
+
+# Terminal 2 — send initialize request
+curl -L -X POST http://127.0.0.1:8000/mcp/ \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"test","version":"1.0.0"}}}'
+```
 
 ## Setup
 
