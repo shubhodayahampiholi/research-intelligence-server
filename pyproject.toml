@@ -1,0 +1,33 @@
+[project]
+name = "research-intelligence-server"
+version = "1.0.0"
+description = "A production-grade MCP server exposing research paper intelligence"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "hatchling>=1.30.1",
+    "mcp>=1.27.2",
+    "pydantic>=2.13.4",
+    "uvicorn>=0.49.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.4.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/research_server"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[project.scripts]
+research-server-stdio = "research_server.transport.stdio:main"
+research-server-http = "research_server.transport.http:main"
