@@ -4,7 +4,7 @@ A production-grade MCP (Model Context Protocol) server that exposes research pap
 
 Built as a companion implementation to the article series:
 - **Part 1:** [MCP Design Patterns for Production Agentic Systems](https://medium.com/@shubhodaya.hampiholi/mcp-design-patterns-for-production-agentic-systems-b42c9fdb4b24)
-- **Part 2:** From Protocol to Production — Building a Production-Grade MCP Server *(coming soon)*
+- **Part 2:** [MCP Internals: Protocol Mechanics, Primitives, and Implementation](https://medium.com/@shubhodaya.hampiholi/mcp-internals-protocol-mechanics-primitives-and-implementation-72d84fdb33e9)*
 
 ---
 
